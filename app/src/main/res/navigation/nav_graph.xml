@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/breakingNews">
+
+    <fragment
+        android:id="@+id/breakingNews"
+        android:name="com.example.newsapp.all.ui.BreakingNews"
+        android:label="fragment_breaking_news"
+        tools:layout="@layout/fragment_breaking_news" >
+
+        <action
+            android:id="@+id/action_breakingNews_to_fullView"
+            app:destination="@id/fullView" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchNews"
+        android:name="com.example.newsapp.all.ui.SearchNews"
+        android:label="fragment_search_news"
+        tools:layout="@layout/fragment_search_news" >
+        <action
+            android:id="@+id/action_searchNews_to_fullView"
+            app:destination="@id/fullView" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullView"
+        android:name="com.example.newsapp.all.ui.FullView"
+        android:label="fragment_full_view"
+        tools:layout="@layout/fragment_full_view" >
+        <argument
+            android:name="article"
+            app:argType="com.example.newsapp.all.models.Article" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedNews"
+        android:name="com.example.newsapp.all.ui.SavedNews"
+        android:label="fragment_saved_news"
+        tools:layout="@layout/fragment_saved_news" >
+        <action
+            android:id="@+id/action_savedNews_to_fullView"
+            app:destination="@id/fullView" />
+    </fragment>
+</navigation>
