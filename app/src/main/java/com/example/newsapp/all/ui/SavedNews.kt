@@ -48,6 +48,7 @@ class SavedNews : Fragment() {
             ColorDrawable(getResources().getColor(R.color.background)));
 
         newsAdapter = NewsAdapter()
+
         binding.recViewSavedNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)

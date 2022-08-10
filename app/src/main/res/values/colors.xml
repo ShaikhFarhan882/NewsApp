@@ -11,5 +11,6 @@
     <color name="navBackground">#F0F0F0</color>
     <color name="card_bg">#086972</color>
     <color name="gray">#91A5BC</color>
+    <color name="blue">#4473BC</color>
     <color name="fab_bg">#EF3EA9</color>
 </resources>

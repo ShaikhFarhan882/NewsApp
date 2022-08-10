@@ -1,5 +1,6 @@
 package com.example.newsapp.all.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -53,6 +54,14 @@ class FullView : Fragment() {
         binding.fab.setOnClickListener {
             viewModel.upsert(article)
             Snackbar.make(binding.root, "Added Successfully", Snackbar.LENGTH_SHORT).show()
+        }
+
+        binding.share.setOnClickListener {
+            val intent= Intent()
+            intent.action=Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT,article.url.toString())
+            intent.type="text/plain"
+            startActivity(Intent.createChooser(intent,"Share To:"))
         }
 
 

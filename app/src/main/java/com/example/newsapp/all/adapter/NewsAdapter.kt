@@ -50,6 +50,10 @@ class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(TaskDiffC
 
     }
 
+    override fun getItemCount(): Int {
+        return currentList.size
+    }
+
     private var onItemClickListener : ((Article) -> Unit)? = null
 
     fun setOnItemClickListener(listener : (Article) -> Unit){
