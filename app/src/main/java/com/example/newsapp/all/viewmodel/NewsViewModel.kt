@@ -21,9 +21,14 @@ class NewsViewModel(private val repository: Repository) : ViewModel() {
 
     var breakingNewsPage = 1
 
+    var breakingNewsAllResponse : NewsResponse? = null
+
+
     val searchNews : MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
     var searchNewsPage = 1
+
+    var searchNewsAllResponse : NewsResponse? = null
 
     fun getBreakingNews(countryCode : String) = viewModelScope.launch {
 
@@ -41,7 +46,16 @@ class NewsViewModel(private val repository: Repository) : ViewModel() {
     private fun HandleNewsResponse(response : Response<NewsResponse>) : Resource<NewsResponse> {
         if(response.isSuccessful){
             response.body()?.let {
-                return Resource.Success(it)
+                breakingNewsPage++
+                if(breakingNewsAllResponse==null){
+                    breakingNewsAllResponse = it
+                }
+                else{
+                    val oldArticles = breakingNewsAllResponse?.articles
+                    val newArticles = it.articles
+                    oldArticles?.addAll(newArticles)
+                }
+                return Resource.Success(breakingNewsAllResponse ?: it)
             }
         }
         return Resource.Error(response.message())
@@ -50,7 +64,16 @@ class NewsViewModel(private val repository: Repository) : ViewModel() {
     private fun HandleSearchResponse(response : Response<NewsResponse>) : Resource<NewsResponse> {
         if(response.isSuccessful){
             response.body()?.let {
-                return Resource.Success(it)
+                searchNewsPage++
+                if(searchNewsAllResponse==null){
+                    searchNewsAllResponse = it
+                }
+                else{
+                    val oldArticles = searchNewsAllResponse?.articles
+                    val newArticles = it.articles
+                    oldArticles?.addAll(newArticles)
+                }
+                return Resource.Success(searchNewsAllResponse ?: it)
             }
         }
         return Resource.Error(response.message())

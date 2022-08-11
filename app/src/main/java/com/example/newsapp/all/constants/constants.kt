@@ -5,5 +5,6 @@ object constants {
 
     const val API_KEY = "2eb9d67652e0451ab97b14e66f7f0bd1"
     const val BASE_URL = "https://newsapi.org"
+    const val QUERY_PAGE_SIZE = 20
 
 }
