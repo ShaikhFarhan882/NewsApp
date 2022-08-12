@@ -39,9 +39,6 @@ class SearchNews : Fragment() {
 
     private lateinit var searchAdapter: NewsAdapter
 
-    var isLoading : Boolean = false
-     var isLastPage : Boolean = false
-     var isScrolling : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,13 +60,13 @@ class SearchNews : Fragment() {
 
 
         //calling the api function to get the data
-        var job : Job? = null
+        var job: Job? = null
         binding.etSearchNews.addTextChangedListener {
             job?.cancel()
             job = MainScope().launch {
                 delay(500L)
                 it?.let {
-                    if(it.toString().isNotEmpty()){
+                    if (it.toString().isNotEmpty()) {
                         viewModel.searchNews(it.toString())
                     }
                 }
@@ -82,12 +79,7 @@ class SearchNews : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data.let {
-                        searchAdapter.submitList(it!!.articles.toList())
-                        val totalPages = it.totalResults / constants.QUERY_PAGE_SIZE + 2
-                        isLastPage = viewModel.breakingNewsPage == totalPages
-                        if(isLastPage){
-                            binding.recViewSearch.setPadding(0,0,0,0)
-                        }
+                        searchAdapter.submitList(it!!.articles)
                     }
                 }
                 is Resource.Error -> {
@@ -113,57 +105,23 @@ class SearchNews : Fragment() {
         return binding.root
     }
 
-    //Handling Pagination for news response
 
-    val myScrollListener = object : RecyclerView.OnScrollListener(){
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                isScrolling = true
-            }
-        }
-
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-
-            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-
-            val firstItemPosition = layoutManager.findFirstVisibleItemPosition()
-            val visibleItemCount = layoutManager.childCount
-            val totalItemCount = layoutManager.itemCount
-
-
-            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
-            val isAtLastItem = firstItemPosition + visibleItemCount >= totalItemCount
-            val isNotAtBeginning = firstItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= constants.QUERY_PAGE_SIZE
-            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
-                    isTotalMoreThanVisible && isScrolling
-            if(shouldPaginate) {
-                viewModel.searchNews(binding.etSearchNews.toString())
-                isScrolling = false
-            }
-
-        }
-    }
-
-    private fun hideProgressBar(){
+    private fun hideProgressBar() {
         binding.progessBar.visibility = View.INVISIBLE
-        isLoading = false
+
     }
 
 
-    private fun showProgressBar(){
+    private fun showProgressBar() {
         binding.progessBar.visibility = View.VISIBLE
-        isLoading = true
+
     }
 
 
-    private fun setRecyclerView(searchAdapter: NewsAdapter){
+    private fun setRecyclerView(searchAdapter: NewsAdapter) {
         binding.recViewSearch.apply {
             adapter = searchAdapter
             layoutManager = LinearLayoutManager(activity)
-            addOnScrollListener(this@SearchNews.myScrollListener)
             itemAnimator = LandingAnimator().apply {
                 addDuration = 550L
             }

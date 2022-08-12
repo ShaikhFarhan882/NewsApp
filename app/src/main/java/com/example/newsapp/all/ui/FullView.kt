@@ -46,6 +46,7 @@ class FullView : Fragment() {
                 webViewClient = WebViewClient()
                 loadUrl(url)
                 settings.javaScriptEnabled
+
             } catch (e: MalformedURLException) {
                 Toast.makeText(requireContext(), e.printStackTrace().toString(), Toast.LENGTH_SHORT)
             }
@@ -70,6 +71,9 @@ class FullView : Fragment() {
 
         return binding.root
     }
+
+
+
 
 
 }

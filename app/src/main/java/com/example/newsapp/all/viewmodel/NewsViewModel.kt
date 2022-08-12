@@ -28,8 +28,6 @@ class NewsViewModel(private val repository: Repository) : ViewModel() {
 
     var searchNewsPage = 1
 
-    var searchNewsAllResponse : NewsResponse? = null
-
     fun getBreakingNews(countryCode : String) = viewModelScope.launch {
 
         val response = repository.getBreakingNews(countryCode,breakingNewsPage)
@@ -64,16 +62,7 @@ class NewsViewModel(private val repository: Repository) : ViewModel() {
     private fun HandleSearchResponse(response : Response<NewsResponse>) : Resource<NewsResponse> {
         if(response.isSuccessful){
             response.body()?.let {
-                searchNewsPage++
-                if(searchNewsAllResponse==null){
-                    searchNewsAllResponse = it
-                }
-                else{
-                    val oldArticles = searchNewsAllResponse?.articles
-                    val newArticles = it.articles
-                    oldArticles?.addAll(newArticles)
-                }
-                return Resource.Success(searchNewsAllResponse ?: it)
+                return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
