@@ -1,8 +1,17 @@
 package com.example.newsapp.all.viewmodel
 
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
+import android.net.NetworkCapabilities.TRANSPORT_WIFI
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsapp.all.constants.GetContext
 import com.example.newsapp.all.constants.Resource
 import com.example.newsapp.all.models.Article
 import com.example.newsapp.all.models.NewsResponse
@@ -10,13 +19,15 @@ import com.example.newsapp.all.repository.Repository
 import com.example.newsapp.all.ui.BreakingNews
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 
-class NewsViewModel(private val repository: Repository) : ViewModel() {
+class NewsViewModel(private val repository: Repository,application: Application) : AndroidViewModel(application) {
 
-    init {
+  /*  init {
         getBreakingNews("in")
-    }
+    }*/
 
+    //Network Operations
     val breakingNews : MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
     var breakingNewsPage = 1
@@ -29,16 +40,19 @@ class NewsViewModel(private val repository: Repository) : ViewModel() {
     var searchNewsPage = 1
 
     fun getBreakingNews(countryCode : String) = viewModelScope.launch {
+        breakingNews.postValue(Resource.Loading())
+        safeCallBreakingNews(countryCode)
+       /* val response = repository.getBreakingNews(countryCode,breakingNewsPage)
 
-        val response = repository.getBreakingNews(countryCode,breakingNewsPage)
-
-        breakingNews.postValue(HandleNewsResponse(response))
+        breakingNews.postValue(HandleNewsResponse(response))*/
     }
 
     fun searchNews(searchQuery : String) = viewModelScope.launch {
         searchNews.postValue(Resource.Loading())
+        safeCallSearchNews(searchQuery)
+        /*searchNews.postValue(Resource.Loading())
         val response = repository.searchNews(searchQuery,searchNewsPage)
-        searchNews.postValue(HandleSearchResponse(response))
+        searchNews.postValue(HandleSearchResponse(response))*/
     }
 
     private fun HandleNewsResponse(response : Response<NewsResponse>) : Resource<NewsResponse> {
@@ -69,6 +83,49 @@ class NewsViewModel(private val repository: Repository) : ViewModel() {
     }
 
 
+    private suspend fun safeCallBreakingNews(countryCode: String){
+        try{
+            if(checkForConnectivity()){
+                val response = repository.getBreakingNews(countryCode,breakingNewsPage)
+                breakingNews.postValue(HandleNewsResponse(response))
+            }
+            else{
+                breakingNews.postValue(Resource.Error("No Internet Connection"))
+            }
+
+        } catch (exception : Throwable){
+            when(exception){
+                is IOException -> breakingNews.postValue(Resource.Error("Network Failure"))
+                else -> breakingNews.postValue(Resource.Error("Data Conversion Error"))
+            }
+
+        }
+    }
+
+
+
+    private suspend fun safeCallSearchNews(searchQuery: String){
+        try{
+            if(checkForConnectivity()){
+                val response = repository.searchNews(searchQuery,searchNewsPage)
+                searchNews.postValue(HandleSearchResponse(response))
+            }
+            else{
+                searchNews.postValue(Resource.Error("No Internet Connection"))
+            }
+
+        } catch (exception : Throwable){
+            when(exception){
+                is IOException -> searchNews.postValue(Resource.Error("Network Failure"))
+                else -> searchNews.postValue(Resource.Error("Data Conversion Error"))
+            }
+
+        }
+    }
+
+
+
+   //Room Operations
     fun upsert(article: Article) = viewModelScope.launch {
         repository.upsert(article)
     }
@@ -77,8 +134,31 @@ class NewsViewModel(private val repository: Repository) : ViewModel() {
         repository.delete(article)
     }
 
+    fun deleteAll() = viewModelScope.launch {
+        repository.deleteAll()
+    }
+
     fun getSavedNews() = repository.getSavedNews()
 
+
+    //Internet Connectivity Conformation
+    private fun checkForConnectivity() : Boolean{
+        var result = false
+        val connectivityManager = getApplication<GetContext>().applicationContext.getSystemService(
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager?
+
+        connectivityManager?.let {
+            it.getNetworkCapabilities(connectivityManager.activeNetwork)?.apply {
+                result = when{
+                    hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                    hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                    else->false
+                }
+            }
+        }
+        return result
+    }
 
 
 }

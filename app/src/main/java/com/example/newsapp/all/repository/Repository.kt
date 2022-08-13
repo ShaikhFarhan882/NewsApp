@@ -17,6 +17,8 @@ class Repository(private val newsDatabase: NewsDatabase) {
 
     suspend fun delete(article: Article) = newsDatabase.newsDAO().deleteNews(article)
 
+    suspend fun deleteAll() = newsDatabase.newsDAO().deleteAllNews()
+
     fun getSavedNews() : LiveData<List<Article>> = newsDatabase.newsDAO().getSavedNews()
 
 

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         val repository = Repository(newsDatabase)
 
-        viewModel = ViewModelProvider(this,ViewModelFactory(repository)).get(NewsViewModel::class.java)
+        viewModel = ViewModelProvider(this,ViewModelFactory(repository,application)).get(NewsViewModel::class.java)
 
         binding.bottomNavigation.setupWithNavController(navController)
 

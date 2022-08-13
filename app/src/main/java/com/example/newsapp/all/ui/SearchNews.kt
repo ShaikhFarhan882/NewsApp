@@ -85,7 +85,7 @@ class SearchNews : Fragment() {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message.let {
-                        Toast.makeText(requireContext(), "Failed to get Data", Toast.LENGTH_SHORT)
+                        Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT)
                             .show()
                     }
 

@@ -58,6 +58,8 @@ class BreakingNews : Fragment() {
         newsAdapter = NewsAdapter()
         setRecyclerView(newsAdapter)
 
+        viewModel.getBreakingNews("in")
+
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
@@ -75,7 +77,7 @@ class BreakingNews : Fragment() {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message.let {
-                        Toast.makeText(requireContext(), "Failed to get Data", Toast.LENGTH_SHORT)
+                        Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT)
                             .show()
                     }
 

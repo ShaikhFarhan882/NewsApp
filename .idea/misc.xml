@@ -12,10 +12,11 @@
         <entry key="..\:/Users/FARHAN/AndroidStudioProjects/NewsApp/app/src/main/res/layout/fragment_breaking_news.xml" value="0.22" />
         <entry key="..\:/Users/FARHAN/AndroidStudioProjects/NewsApp/app/src/main/res/layout/fragment_full_article_view.xml" value="0.1648148148148148" />
         <entry key="..\:/Users/FARHAN/AndroidStudioProjects/NewsApp/app/src/main/res/layout/fragment_full_view.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/FARHAN/AndroidStudioProjects/NewsApp/app/src/main/res/layout/fragment_saved_news.xml" value="0.1796875" />
+        <entry key="..\:/Users/FARHAN/AndroidStudioProjects/NewsApp/app/src/main/res/layout/fragment_saved_news.xml" value="0.35684647302904565" />
         <entry key="..\:/Users/FARHAN/AndroidStudioProjects/NewsApp/app/src/main/res/layout/fragment_search_news.xml" value="0.22" />
         <entry key="..\:/Users/FARHAN/AndroidStudioProjects/NewsApp/app/src/main/res/layout/single_row.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/FARHAN/AndroidStudioProjects/NewsApp/app/src/main/res/menu/bottom_nav.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/FARHAN/AndroidStudioProjects/NewsApp/app/src/main/res/menu/menu_saved_news.xml" value="0.22" />
       </map>
     </option>
   </component>
