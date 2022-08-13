@@ -23,6 +23,7 @@
             android:layout_margin="10dp"
             android:layout_marginTop="32dp"
             android:hint="Search News Here..."
+            android:maxHeight="100dp"
             android:padding="10dp"
             android:textColorHint="@color/black"
             android:textSize="24sp"
@@ -56,3 +57,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+

@@ -53,8 +53,6 @@ class SearchNews : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
             ColorDrawable(getResources().getColor(R.color.background)));
 
-
-
         searchAdapter = NewsAdapter()
         setRecyclerView(searchAdapter)
 
@@ -84,8 +82,8 @@ class SearchNews : Fragment() {
                 }
                 is Resource.Error -> {
                     hideProgressBar()
-                    response.message.let {
-                        Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT)
+                    response.message?.let {
+                        Toast.makeText(activity,"Error : ${it.toString()}", Toast.LENGTH_SHORT)
                             .show()
                     }
 
@@ -116,7 +114,6 @@ class SearchNews : Fragment() {
         binding.progessBar.visibility = View.VISIBLE
 
     }
-
 
     private fun setRecyclerView(searchAdapter: NewsAdapter) {
         binding.recViewSearch.apply {

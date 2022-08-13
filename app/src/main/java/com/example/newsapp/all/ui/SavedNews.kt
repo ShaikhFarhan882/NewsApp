@@ -127,7 +127,7 @@ class SavedNews : Fragment() {
             )
             .setNegativeButton("No", null)
             .show()
+        Toast.makeText(requireContext(),"Deleted Successfully",Toast.LENGTH_SHORT).show()
     }
-
 
 }

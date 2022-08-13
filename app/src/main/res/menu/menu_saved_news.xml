@@ -5,6 +5,7 @@
     <item
         android:id="@+id/deleteAllNews"
         app:showAsAction="always"
+        android:icon="@drawable/ic_delete_all"
         android:title="Clear All"/>
 
 </menu>

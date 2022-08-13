@@ -39,6 +39,7 @@ class BreakingNews : Fragment() {
      var isLastPage : Boolean = false
      var isScrolling : Boolean = false
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -52,21 +53,18 @@ class BreakingNews : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
             ColorDrawable(getResources().getColor(R.color.background)));
 
-        binding.lifecycleOwner = this
-
 
         newsAdapter = NewsAdapter()
         setRecyclerView(newsAdapter)
 
-        viewModel.getBreakingNews("in")
-
+        //Making api request and observing data
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
-                    response.data.let {
+                   response.data.let {
                         newsAdapter.submitList(it!!.articles.toList())
-                        val totalPages = it.totalResults / QUERY_PAGE_SIZE + 2
+                        val totalPages = (it.totalResults / QUERY_PAGE_SIZE) + 2
                         isLastPage = viewModel.breakingNewsPage == totalPages
 
                         if(isLastPage){
@@ -76,8 +74,8 @@ class BreakingNews : Fragment() {
                 }
                 is Resource.Error -> {
                     hideProgressBar()
-                    response.message.let {
-                        Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT)
+                    response.message?.let {
+                        Toast.makeText(activity,"Error : ${it.toString()}", Toast.LENGTH_SHORT)
                             .show()
                     }
 

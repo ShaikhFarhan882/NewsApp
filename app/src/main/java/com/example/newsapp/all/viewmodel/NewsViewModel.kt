@@ -39,16 +39,20 @@ class NewsViewModel(private val repository: Repository,application: Application)
 
     var searchNewsPage = 1
 
-    fun getBreakingNews(countryCode : String) = viewModelScope.launch {
-        breakingNews.postValue(Resource.Loading())
-        safeCallBreakingNews(countryCode)
-       /* val response = repository.getBreakingNews(countryCode,breakingNewsPage)
+     init {
+       getBreakingNews("in")
+   }
 
+
+    fun getBreakingNews(countryCode : String) = viewModelScope.launch {
+        /*breakingNews.postValue(Resource.Loading())*/
+        safeCallBreakingNews(countryCode)
+        /*val response = repository.getBreakingNews(countryCode,breakingNewsPage)
         breakingNews.postValue(HandleNewsResponse(response))*/
     }
 
     fun searchNews(searchQuery : String) = viewModelScope.launch {
-        searchNews.postValue(Resource.Loading())
+        /*searchNews.postValue(Resource.Loading())*/
         safeCallSearchNews(searchQuery)
         /*searchNews.postValue(Resource.Loading())
         val response = repository.searchNews(searchQuery,searchNewsPage)
@@ -84,6 +88,7 @@ class NewsViewModel(private val repository: Repository,application: Application)
 
 
     private suspend fun safeCallBreakingNews(countryCode: String){
+        breakingNews.postValue(Resource.Loading())
         try{
             if(checkForConnectivity()){
                 val response = repository.getBreakingNews(countryCode,breakingNewsPage)
@@ -93,7 +98,8 @@ class NewsViewModel(private val repository: Repository,application: Application)
                 breakingNews.postValue(Resource.Error("No Internet Connection"))
             }
 
-        } catch (exception : Throwable){
+        } catch (exception : IOException){
+
             when(exception){
                 is IOException -> breakingNews.postValue(Resource.Error("Network Failure"))
                 else -> breakingNews.postValue(Resource.Error("Data Conversion Error"))
@@ -105,6 +111,7 @@ class NewsViewModel(private val repository: Repository,application: Application)
 
 
     private suspend fun safeCallSearchNews(searchQuery: String){
+        searchNews.postValue(Resource.Loading())
         try{
             if(checkForConnectivity()){
                 val response = repository.searchNews(searchQuery,searchNewsPage)
@@ -142,7 +149,7 @@ class NewsViewModel(private val repository: Repository,application: Application)
 
 
     //Internet Connectivity Conformation
-    private fun checkForConnectivity() : Boolean{
+     fun checkForConnectivity() : Boolean{
         var result = false
         val connectivityManager = getApplication<GetContext>().applicationContext.getSystemService(
             Context.CONNECTIVITY_SERVICE
