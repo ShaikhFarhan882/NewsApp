@@ -23,10 +23,6 @@ import java.io.IOException
 
 class NewsViewModel(private val repository: Repository,application: Application) : AndroidViewModel(application) {
 
-  /*  init {
-        getBreakingNews("in")
-    }*/
-
     //Network Operations
     val breakingNews : MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
@@ -169,3 +165,4 @@ class NewsViewModel(private val repository: Repository,application: Application)
 
 
 }
+

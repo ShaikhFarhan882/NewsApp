@@ -35,7 +35,9 @@ class SearchNews : Fragment() {
 
     lateinit var viewModel: NewsViewModel
 
-    lateinit var binding: FragmentSearchNewsBinding
+    private var _binding: FragmentSearchNewsBinding? = null
+
+    private val binding get() = _binding!!
 
     private lateinit var searchAdapter: NewsAdapter
 
@@ -45,7 +47,7 @@ class SearchNews : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentSearchNewsBinding.inflate(inflater)
+        _binding = FragmentSearchNewsBinding.inflate(inflater)
 
         viewModel = (activity as MainActivity).viewModel
 
@@ -112,7 +114,6 @@ class SearchNews : Fragment() {
 
     private fun showProgressBar() {
         binding.progessBar.visibility = View.VISIBLE
-
     }
 
     private fun setRecyclerView(searchAdapter: NewsAdapter) {
@@ -123,7 +124,11 @@ class SearchNews : Fragment() {
                 addDuration = 550L
             }
         }
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

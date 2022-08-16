@@ -32,13 +32,16 @@ class SavedNews : Fragment() {
     lateinit var newsAdapter: NewsAdapter
     lateinit var viewModel: NewsViewModel
 
+    private var _binding: FragmentSavedNewsBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        val binding = FragmentSavedNewsBinding.inflate(layoutInflater)
+        _binding = FragmentSavedNewsBinding.inflate(layoutInflater)
 
         viewModel = (activity as MainActivity).viewModel
 
@@ -47,14 +50,7 @@ class SavedNews : Fragment() {
             ColorDrawable(getResources().getColor(R.color.background)));
 
         newsAdapter = NewsAdapter()
-
-        binding.recViewSavedNews.apply {
-            adapter = newsAdapter
-            layoutManager = LinearLayoutManager(activity)
-            itemAnimator = SlideInDownAnimator().apply {
-                addDuration = 600L
-            }
-        }
+        setRecyclerView(newsAdapter)
 
         viewModel.getSavedNews().observe(viewLifecycleOwner, Observer {
             newsAdapter.submitList(it)
@@ -104,30 +100,49 @@ class SavedNews : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_saved_news,menu)
+        inflater.inflate(R.menu.menu_saved_news, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.deleteAllNews -> {
-                deleteAllTasks()
+                deleteAllTasksDialog()
             }
         }
         return super.onOptionsItemSelected(item)
 
     }
 
-    fun deleteAllTasks() {
+    private fun deleteAllTasksDialog() {
         android.app.AlertDialog.Builder(requireContext())
             .setIcon(android.R.drawable.ic_delete)
             .setTitle("Clear All?")
             .setMessage("Are you sure you want to delete all news article?")
             .setPositiveButton("Yes",
-                DialogInterface.OnClickListener { dialog, which -> viewModel.deleteAll() }
+                DialogInterface.OnClickListener { dialog, which -> deleteAll() }
             )
             .setNegativeButton("No", null)
             .show()
-        Toast.makeText(requireContext(),"Deleted Successfully",Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteAll() {
+        viewModel.deleteAll()
+        Toast.makeText(requireContext(), "Successfully Deleted", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setRecyclerView(newsAdapter: NewsAdapter) {
+        binding.recViewSavedNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(activity)
+            itemAnimator = SlideInDownAnimator().apply {
+                addDuration = 600L
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

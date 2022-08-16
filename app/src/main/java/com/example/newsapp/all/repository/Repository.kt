@@ -24,4 +24,5 @@ class Repository(private val newsDatabase: NewsDatabase) {
 
 
 
+
 }

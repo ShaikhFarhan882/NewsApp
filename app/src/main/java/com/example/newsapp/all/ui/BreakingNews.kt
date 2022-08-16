@@ -33,7 +33,9 @@ class BreakingNews : Fragment() {
 
     lateinit var newsAdapter: NewsAdapter
     lateinit var viewModel : NewsViewModel
-    lateinit var binding: FragmentBreakingNewsBinding
+
+    private var _binding: FragmentBreakingNewsBinding? = null
+    private val binding get() = _binding!!
 
      var isLoading : Boolean = false
      var isLastPage : Boolean = false
@@ -45,7 +47,7 @@ class BreakingNews : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentBreakingNewsBinding.inflate(inflater)
+        _binding = FragmentBreakingNewsBinding.inflate(inflater)
 
         viewModel = (activity as MainActivity).viewModel
 
@@ -155,6 +157,11 @@ class BreakingNews : Fragment() {
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
