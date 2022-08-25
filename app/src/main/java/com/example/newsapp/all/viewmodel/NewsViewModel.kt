@@ -7,10 +7,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.newsapp.all.constants.GetContext
 import com.example.newsapp.all.constants.Resource
 import com.example.newsapp.all.models.Article
@@ -142,6 +139,10 @@ class NewsViewModel(private val repository: Repository,application: Application)
     }
 
     fun getSavedNews() = repository.getSavedNews()
+
+    fun searchDatabase(query : String) : LiveData<List<Article>> {
+        return repository.searchArticle(query)
+    }
 
 
     //Internet Connectivity Conformation

@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,7 @@ import jp.wasabeef.recyclerview.animators.LandingAnimator
 import jp.wasabeef.recyclerview.animators.SlideInDownAnimator
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
-class SavedNews : Fragment() {
+class SavedNews : Fragment(),SearchView.OnQueryTextListener {
 
 
     lateinit var newsAdapter: NewsAdapter
@@ -80,7 +81,8 @@ class SavedNews : Fragment() {
                 val position = viewHolder.adapterPosition
                 val article = newsAdapter.currentList[position]
                 viewModel.delete(article)
-                Snackbar.make(binding.root, "Deleted Successfully", Snackbar.LENGTH_LONG).apply {
+                val view = binding.root
+                Snackbar.make(view, "Deleted Successfully", Snackbar.LENGTH_LONG).apply {
                     setAction("Undo") {
                         viewModel.upsert(article)
                     }
@@ -101,6 +103,11 @@ class SavedNews : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_saved_news, menu)
+
+        val search = menu.findItem(R.id.search_bar)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -143,6 +150,32 @@ class SavedNews : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+       return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if(query!!.isEmpty()) {
+            viewModel.getSavedNews().observe(viewLifecycleOwner, Observer {
+                newsAdapter.submitList(it)
+            })
+        }
+        else{
+            searchThroughDatabase(query)
+        }
+        return true
+    }
+
+    private fun searchThroughDatabase(query: String) {
+        var searchQuery: String = query
+        searchQuery = "%$searchQuery%"
+
+        viewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner, { Article ->
+            newsAdapter.submitList(Article)
+        })
+
     }
 
 }

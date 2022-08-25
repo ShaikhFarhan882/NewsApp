@@ -18,5 +18,7 @@ interface NewsDAO {
     @Query("DELETE FROM articles")
     suspend fun deleteAllNews()
 
+    @Query("SELECT * FROM articles WHERE title LIKE :query")
+    fun searchItem(query : String) : LiveData<List<Article>>
 
 }

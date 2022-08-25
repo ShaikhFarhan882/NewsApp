@@ -21,6 +21,8 @@ class Repository(private val newsDatabase: NewsDatabase) {
 
     fun getSavedNews() : LiveData<List<Article>> = newsDatabase.newsDAO().getSavedNews()
 
+    fun searchArticle(query: String) : LiveData<List<Article>> = newsDatabase.newsDAO().searchItem(query)
+
 
 
 
