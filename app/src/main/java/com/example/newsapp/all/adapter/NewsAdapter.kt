@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.all.models.Article
@@ -36,11 +38,13 @@ class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(TaskDiffC
         val article = getItem(position)
         holder.Bind(article)
 
-        Glide.with(holder.binding.newsImage.context.applicationContext).load(article.urlToImage)
-            .placeholder(
-                R.drawable.ic_no_image).into(
-            holder.binding.newsImage
-        )
+        holder.binding.newsImage.load(article.urlToImage){
+            placeholder(R.drawable.ic_default_image)
+            crossfade(true)
+            crossfade(200)
+            transformations(RoundedCornersTransformation(30f))
+
+        }
 
         holder.binding.root.setOnClickListener {
             onItemClickListener?.let {
