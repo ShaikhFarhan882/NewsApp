@@ -2,4 +2,5 @@
     <string name="app_name">NewsApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_slogan">Anytime, anywhere, access to the latest and updated news</string>
 </resources>
