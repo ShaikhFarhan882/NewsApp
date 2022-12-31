@@ -93,7 +93,6 @@ class BreakingNews : Fragment() {
         newsAdapter.setOnItemClickListener {
                 val action = BreakingNewsDirections.actionBreakingNewsToFullView(article = it)
                 findNavController().navigate(action)
-
         }
 
         return binding.root

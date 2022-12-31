@@ -43,7 +43,6 @@ class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(TaskDiffC
             crossfade(true)
             crossfade(200)
             transformations(RoundedCornersTransformation(30f))
-
         }
 
         holder.binding.root.setOnClickListener {
