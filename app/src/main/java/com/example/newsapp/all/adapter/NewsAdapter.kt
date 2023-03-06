@@ -41,10 +41,10 @@ class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(TaskDiffC
 
 
         holder.binding.newsImage.load(article.urlToImage){
-            placeholder(R.drawable.ic_default_image)
             crossfade(true)
             crossfade(200)
             transformations(RoundedCornersTransformation(30f))
+            placeholder(R.drawable.ic_default_image)
         }
 
 

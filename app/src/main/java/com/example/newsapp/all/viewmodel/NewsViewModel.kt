@@ -33,7 +33,7 @@ class NewsViewModel(private val repository: Repository,application: Application)
     var searchNewsPage = 1
 
      init {
-       getBreakingNews("in")
+       getBreakingNews("us")
    }
 
 
