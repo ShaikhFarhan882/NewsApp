@@ -2,24 +2,17 @@ package com.example.newsapp.all.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.example.newsapp.all.adapter.NewsAdapter
-import com.example.newsapp.all.database.NewsDatabase
-import com.example.newsapp.all.repository.Repository
 import com.example.newsapp.all.viewmodel.NewsViewModel
-import com.example.newsapp.all.viewmodel.ViewModelFactory
 import com.example.newsapp.databinding.FragmentFullViewBinding
 import com.google.android.material.snackbar.Snackbar
 import java.net.MalformedURLException
-import java.net.URI
-import java.net.URL
 
 class FullView : Fragment() {
 
@@ -58,22 +51,15 @@ class FullView : Fragment() {
         }
 
         binding.share.setOnClickListener {
-            val intent= Intent()
-            intent.action=Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT,article.url.toString())
-            intent.type="text/plain"
-            startActivity(Intent.createChooser(intent,"Share To:"))
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, article.url.toString())
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Share To:"))
         }
-
-
-
-
 
         return binding.root
     }
-
-
-
 
 
 }

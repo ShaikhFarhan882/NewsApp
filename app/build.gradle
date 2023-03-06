@@ -67,10 +67,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    //Glide
-    implementation 'com.github.bumptech.glide:glide:4.13.2'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
-
     //Room Database
     def roomVersion = "2.5.0-alpha02"
     implementation("androidx.room:room-runtime:$roomVersion")
@@ -86,8 +82,13 @@ dependencies {
     //coil imageLibrary
     implementation("io.coil-kt:coil:2.2.0")
 
+
     //Lottie Animations
     implementation 'com.airbnb.android:lottie:5.2.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
 
 
 }

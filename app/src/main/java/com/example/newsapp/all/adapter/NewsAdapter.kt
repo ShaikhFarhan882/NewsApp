@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.all.models.Article
 import com.example.newsapp.databinding.SingleRowBinding
+import kotlinx.coroutines.withContext
 
 class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(TaskDiffCallBack) {
 
@@ -38,12 +39,14 @@ class NewsAdapter: ListAdapter<Article, NewsAdapter.ArticleViewHolder>(TaskDiffC
         val article = getItem(position)
         holder.Bind(article)
 
+
         holder.binding.newsImage.load(article.urlToImage){
             placeholder(R.drawable.ic_default_image)
             crossfade(true)
             crossfade(200)
             transformations(RoundedCornersTransformation(30f))
         }
+
 
         holder.binding.root.setOnClickListener {
             onItemClickListener?.let {
