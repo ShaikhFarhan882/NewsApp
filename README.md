@@ -5,9 +5,7 @@ Used Retrofit with Coroutines to make network calls.
 Adopted Room Database to store news articles locally.  
 
 # Preview  
-
-
-
-https://user-images.githubusercontent.com/85299521/186641850-d53c840d-4a52-491f-8fa0-126a82a619ff.mp4
-
-
+![1](https://github.com/ShaikhFarhan882/NewsApp/assets/85299521/c1d2e77c-c178-4638-94a2-f32def3a269f)
+![2](https://github.com/ShaikhFarhan882/NewsApp/assets/85299521/f1006d3a-6a63-4bb9-af64-3832e75e73e4)
+![3](https://github.com/ShaikhFarhan882/NewsApp/assets/85299521/15224d18-40ff-481f-b425-b0191965c9d3)
+![4](https://github.com/ShaikhFarhan882/NewsApp/assets/85299521/6a47acbf-dc75-46cb-bfa7-c019fa51dd1a)
