@@ -52,8 +52,8 @@ class SearchNews : Fragment() {
         viewModel = (activity as MainActivity).viewModel
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Search"
-        (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
-            ColorDrawable(getResources().getColor(R.color.background)));
+      /*  (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
+            ColorDrawable(getResources().getColor(R.color.background)));*/
 
         searchAdapter = NewsAdapter()
         setRecyclerView(searchAdapter)

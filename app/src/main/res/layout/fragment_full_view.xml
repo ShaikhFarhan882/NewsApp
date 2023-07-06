@@ -10,13 +10,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         tools:context=".all.ui.FullView">
 
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></WebView>
+            android:layout_height="match_parent">\
+        </WebView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/fab_bg"
             android:elevation="12dp"
             android:src="@drawable/ic_favourite"
             app:fabSize="normal"
@@ -37,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/blue"
             android:elevation="12dp"
             android:src="@drawable/ic_baseline_share_24"
             app:fabSize="normal"

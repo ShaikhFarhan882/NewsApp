@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     tools:context=".all.ui.SplashScreen">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -30,7 +29,6 @@
         android:padding="10dp"
         android:text="@string/app_slogan"
         android:textAlignment="center"
-        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

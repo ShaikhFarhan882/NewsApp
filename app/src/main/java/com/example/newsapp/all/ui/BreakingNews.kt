@@ -52,8 +52,8 @@ class BreakingNews : Fragment() {
         viewModel = (activity as MainActivity).viewModel
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Home"
-        (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
-            ColorDrawable(getResources().getColor(R.color.background)));
+       /* (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
+            ColorDrawable(getResources().getColor(R.color.background)));*/
 
 
         newsAdapter = NewsAdapter()

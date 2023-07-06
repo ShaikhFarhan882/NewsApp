@@ -10,7 +10,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
         tools:context=".all.ui.SearchNews">
 
 
@@ -19,13 +18,13 @@
             android:background="@drawable/et_custom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:layout_margin="10dp"
             android:layout_marginTop="32dp"
             android:hint="Search News Here..."
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
             android:maxHeight="100dp"
             android:padding="10dp"
-            android:textColorHint="@color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.473"

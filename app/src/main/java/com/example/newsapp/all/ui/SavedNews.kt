@@ -18,6 +18,7 @@ import com.example.newsapp.R
 import com.example.newsapp.all.adapter.NewsAdapter
 import com.example.newsapp.all.database.NewsDatabase
 import com.example.newsapp.all.repository.Repository
+import com.example.newsapp.all.utils.EmptyDataObserver
 import com.example.newsapp.all.viewmodel.NewsViewModel
 import com.example.newsapp.all.viewmodel.ViewModelFactory
 import com.example.newsapp.databinding.FragmentBreakingNewsBinding
@@ -47,8 +48,8 @@ class SavedNews : Fragment(),SearchView.OnQueryTextListener {
         viewModel = (activity as MainActivity).viewModel
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Saved"
-        (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
-            ColorDrawable(getResources().getColor(R.color.background)));
+      /*  (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
+            ColorDrawable(getResources().getColor(R.color.background)));*/
 
         newsAdapter = NewsAdapter()
         setRecyclerView(newsAdapter)
@@ -141,6 +142,10 @@ class SavedNews : Fragment(),SearchView.OnQueryTextListener {
         binding.recViewSavedNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
+
+            val emptyDataObserver = EmptyDataObserver(binding.recViewSavedNews, binding.emptyState)
+            newsAdapter.registerAdapterDataObserver(emptyDataObserver)
+
             itemAnimator = SlideInDownAnimator().apply {
                 addDuration = 600L
             }

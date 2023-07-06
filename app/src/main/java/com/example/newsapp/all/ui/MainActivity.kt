@@ -12,6 +12,7 @@ import com.example.newsapp.all.repository.Repository
 import com.example.newsapp.all.viewmodel.NewsViewModel
 import com.example.newsapp.all.viewmodel.ViewModelFactory
 import com.example.newsapp.databinding.ActivityMainBinding
+import com.google.android.material.elevation.SurfaceColors
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -26,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
 
         navController = navHostFragment.navController
+
+        val color = SurfaceColors.SURFACE_2.getColor(this)
+        window.statusBarColor = color
+
 
         val newsDatabase = NewsDatabase.getDatabase(this)
 
