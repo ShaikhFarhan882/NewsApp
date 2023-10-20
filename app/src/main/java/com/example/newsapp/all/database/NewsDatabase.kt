@@ -16,6 +16,7 @@ import com.example.newsapp.all.models.Article
 abstract class NewsDatabase : RoomDatabase(){
     abstract fun newsDAO() : NewsDAO
 
+/*
     companion object{
         @Volatile
         private var INSTANCE: NewsDatabase? = null
@@ -35,5 +36,6 @@ abstract class NewsDatabase : RoomDatabase(){
             }
         }
 
-    }
+    }*/
+
 }

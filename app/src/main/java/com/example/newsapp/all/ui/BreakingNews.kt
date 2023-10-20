@@ -10,6 +10,7 @@ import android.widget.AbsListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,16 +24,16 @@ import com.example.newsapp.all.repository.Repository
 import com.example.newsapp.all.viewmodel.NewsViewModel
 import com.example.newsapp.all.viewmodel.ViewModelFactory
 import com.example.newsapp.databinding.FragmentBreakingNewsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import java.net.MalformedURLException
 
 
+@AndroidEntryPoint
 class BreakingNews : Fragment() {
-
-
     lateinit var newsAdapter: NewsAdapter
-    lateinit var viewModel : NewsViewModel
+    private val viewModel by viewModels<NewsViewModel>()
 
     private var _binding: FragmentBreakingNewsBinding? = null
     private val binding get() = _binding!!
@@ -48,8 +49,6 @@ class BreakingNews : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentBreakingNewsBinding.inflate(inflater)
-
-        viewModel = (activity as MainActivity).viewModel
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Home"
        /* (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(

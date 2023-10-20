@@ -8,19 +8,21 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.newsapp.all.viewmodel.NewsViewModel
 import com.example.newsapp.databinding.FragmentFullViewBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import java.net.MalformedURLException
-
+@AndroidEntryPoint
 class FullView : Fragment() {
 
     private val args: FullViewArgs by navArgs()
 
     lateinit var binding: FragmentFullViewBinding
 
-    lateinit var viewModel: NewsViewModel
+    private val viewModel by viewModels<NewsViewModel>()
 
 
     override fun onCreateView(
@@ -28,8 +30,6 @@ class FullView : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val binding = FragmentFullViewBinding.inflate(layoutInflater)
-
-        viewModel = (activity as MainActivity).viewModel
 
         val article = args.article
         val url = args.article.url.toString()

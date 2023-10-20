@@ -13,11 +13,13 @@ import com.example.newsapp.all.viewmodel.NewsViewModel
 import com.example.newsapp.all.viewmodel.ViewModelFactory
 import com.example.newsapp.databinding.ActivityMainBinding
 import com.google.android.material.elevation.SurfaceColors
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var navController : NavController
-    lateinit var viewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         val color = SurfaceColors.SURFACE_2.getColor(this)
         window.statusBarColor = color
-
-
-        val newsDatabase = NewsDatabase.getDatabase(this)
-
-        val repository = Repository(newsDatabase)
-
-        viewModel = ViewModelProvider(this,ViewModelFactory(repository,application)).get(NewsViewModel::class.java)
 
         binding.bottomNavigation.setupWithNavController(navController)
 
