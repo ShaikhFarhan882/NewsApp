@@ -39,7 +39,7 @@ class NewsViewModel @Inject constructor(
     var searchNewsPage = 1
 
     init {
-        getBreakingNews("in")
+        getBreakingNews("us")
     }
 
 
